@@ -1,0 +1,31 @@
+[Unit]
+Description=openHAB: Empowering the smart home
+After=docker.service
+
+[Service]
+RemainAfterExit=true
+EnvironmentFile=/home//%I/openhab/.service-config
+ExecStart=/usr/bin/docker run -d \
+		-ti \
+		--init \
+		--name="openhab" \
+		--restart="unless-stopped" \
+		--user="${UID}" \
+		--volume="/etc/localtime:/etc/localtime:ro" \
+		--volume="/var/lib/services/openhab/:/home/openhab/.openhab/" \
+		--network="bridge" \
+		-p ${HTTP_PORT}:8080 \
+		-p ${HTTPS_PORT}:8443 \
+		-p ${FRONTAIL_PORT}:9001 \
+		-p ${CALLBACK_RANGE}:${CALLBACK_RANGE} \
+		-e OPENHAB_HTTP_PORT="8080" \
+		-e OPENHAB_HTTPS_PORT="8443" \
+		-e OPENHAB_FRONTAIL_PORT="9001" \
+		-e OPENHAB_CALLBACK_RANGE="${CALLBACK_RANGE}" \
+		-e OPENHAB_VERSION="${VERSION}" \
+		openhab:"${VERSION}"-arm32v7-debian
+
+ExecStop=/usr/bin/docker rm --force openhab
+
+[Install]
+WantedBy=multi-user.target
