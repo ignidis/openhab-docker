@@ -26,6 +26,7 @@ RUN	export DEBIAN_FRONTEND="noninteractive"; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends --autoremove apt-utils xz-utils unzip wget ca-certificates; \
 	apt-get install -y --no-install-recommends --autoremove \
+	sqlite3 \
 	sudo \
 	; \
 #
