@@ -17,7 +17,8 @@ ENV	EXTRA_JAVA_OPTS="" \
 	OPENHAB_HTTPS_PORT="8443" \
 	OPENHAB_FRONTTAIL_PORT="9001" \
 	OPENHAB_LSP_PORT="5007" \
-	PATH="/opt/node/bin:${PATH}"
+	OPENHAB_HOME="/home/${OPENHAB_SVC_NAME}/" \
+	PATH="/opt/openhab/:${PATH}"
 
 # Update the operating system and install required packges
 #
